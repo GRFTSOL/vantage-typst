@@ -17,10 +17,14 @@
   services.map(service => {
       icon(service.name)
 
-      if "display" in service.keys() {
-        link(service.link)[#{service.display}]
+      if service.link == "" and "display" not in service.keys() { return }
+
+      let content = if "display" in service.keys() { service.display } else { service.link }
+
+      if service.link != "" {
+        link(service.link)[#content]
       } else {
-        link(service.link)
+        content
       }
     }).join(h(10pt))
   [
